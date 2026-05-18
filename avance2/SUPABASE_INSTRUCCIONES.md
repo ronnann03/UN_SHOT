@@ -48,9 +48,10 @@ ALTER TABLE clientes ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "lectura_clientes" ON clientes FOR SELECT USING (true);
 CREATE POLICY "insertar_clientes" ON clientes FOR INSERT WITH CHECK (true);
 
--- Permitir lectura publica en reservas
+-- Permitir lectura e insercion en reservas
 ALTER TABLE reservas ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "lectura_reservas" ON reservas FOR SELECT USING (true);
+CREATE POLICY "lectura_reservas"  ON reservas FOR SELECT USING (true);
+CREATE POLICY "insertar_reservas" ON reservas FOR INSERT WITH CHECK (true);
 ```
 
 ## Driver PostgreSQL para Java
