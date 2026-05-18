@@ -1,0 +1,121 @@
+/* UNSHOT - Estilos compartidos para paginas de administracion */
+
+.admin-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 100px 0 40px;
+}
+.admin-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--white);
+}
+.admin-hero p {
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Stat cards */
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
+  padding: 24px 20px;
+  text-align: center;
+}
+.stat-card .stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-card .stat-label {
+  font-size: .72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Tabla de datos */
+.data-table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table thead tr {
+  background: var(--surface);
+  border-bottom: 1px solid var(--gold-dark);
+}
+.data-table thead th {
+  font-size: .68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 14px 18px;
+  font-family: 'Cormorant Garamond', serif;
+  white-space: nowrap;
+}
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+.data-table tbody tr:hover {
+  background: rgba(201,168,76,.04);
+}
+.data-table tbody tr:last-child {
+  border: none;
+}
+.data-table td {
+  padding: 12px 18px;
+  font-size: .9rem;
+  color: var(--text);
+}
+
+/* Badges de estado */
+.estado-badge {
+  font-size: .68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  font-weight: 600;
+}
+.badge-confirmada { color: #4ade80; border: 1px solid #4ade80; }
+.badge-pendiente  { color: #facc15; border: 1px solid #facc15; }
+.badge-cancelada  { color: #f87171; border: 1px solid #f87171; }
+
+/* Buscador */
+.search-bar {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 10px 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 340px;
+  transition: border-color .2s;
+}
+.search-bar::placeholder { color: var(--muted); }
+.search-bar:focus { outline: none; border-color: var(--gold); }
+
+/* Loader */
+.loading-row td {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px;
+  font-size: .9rem;
+  letter-spacing: 2px;
+}
+
+/* Aviso de error */
+.error-row td {
+  text-align: center;
+  color: #f87171;
+  padding: 40px;
+  font-size: .9rem;
+}

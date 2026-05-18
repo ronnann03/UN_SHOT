@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Reservas — UNSHOT Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/shared.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="brand-logo" href="index.html"><em>UN</em><span>SHOT</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <i class="bi bi-list" style="color:var(--gold);font-size:1.5rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
+        <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="clientes.html">Clientes</a></li>
+        <li class="nav-item"><a class="nav-link active" href="reservas-admin.html">Reservas</a></li>
+        <li class="nav-item ms-2"><a class="nav-link btn-nav" href="index.html#reservar">Reservar Mesa</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="admin-hero">
+  <div class="container">
+    <div class="section-tag">— Base de Datos —</div>
+    <h1>Gestión de Reservas</h1>
+    <div class="gold-line mt-2 mb-2"></div>
+    <p>Todas las reservas de mesa registradas en UNSHOT Bar.</p>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<section style="background:var(--bg);padding:60px 0 80px">
+  <div class="container">
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num" id="totalReservas">—</div>
+          <div class="stat-label">Total reservas</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num" id="totalConfirmadas" style="color:#4ade80">—</div>
+          <div class="stat-label">Confirmadas</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num" id="totalPendientes" style="color:#facc15">—</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num" id="totalPersonas">—</div>
+          <div class="stat-label">Total personas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="d-flex gap-2 mb-4 flex-wrap align-items-center">
+      <input type="text" class="search-bar" id="buscador" placeholder="Buscar cliente..."/>
+      <select id="filtroEstado" style="background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:'Cormorant Garamond',serif">
+        <option value="">Todos los estados</option>
+        <option value="Confirmada">Confirmada</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="Cancelada">Cancelada</option>
+      </select>
+    </div>
+
+    <!-- Tabla -->
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Personas</th>
+            <th>Ocasion</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr class="loading-row"><td colspan="7">Cargando datos...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-3" style="font-size:.78rem;color:var(--muted)">
+      <i class="bi bi-database me-1" style="color:var(--gold-dark)"></i>
+      Fuente: tablas <code style="color:var(--gold-dark)">reservas</code> + <code style="color:var(--gold-dark)">clientes</code> en Supabase PostgreSQL
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-auto"><div class="footer-logo"><em>UN</em><span>SHOT</span></div></div>
+      <div class="col-auto d-flex gap-4 flex-wrap">
+        <a href="index.html">Inicio</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 UNSHOT Bar. Todos los derechos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  let todasLasReservas = []
+
+  async function cargarReservas() {
+    const { data, error } = await supabaseClient
+      .from('reservas')
+      .select(`
+        id_reserva, fecha, hora, num_personas, ocasion, estado,
+        clientes ( nombre, apellido )
+      `)
+      .order('fecha', { ascending: false })
+
+    if (error) {
+      document.getElementById('tableBody').innerHTML =
+        `<tr class="error-row"><td colspan="7">Error al conectar: ${error.message}</td></tr>`
+      return
+    }
+
+    todasLasReservas = data || []
+
+    document.getElementById('totalReservas').textContent    = todasLasReservas.length
+    document.getElementById('totalConfirmadas').textContent = todasLasReservas.filter(r => r.estado === 'Confirmada').length
+    document.getElementById('totalPendientes').textContent  = todasLasReservas.filter(r => r.estado === 'Pendiente').length
+    document.getElementById('totalPersonas').textContent    = todasLasReservas.reduce((s, r) => s + (r.num_personas || 0), 0)
+
+    renderTabla(todasLasReservas)
+  }
+
+  function renderTabla(lista) {
+    if (lista.length === 0) {
+      document.getElementById('tableBody').innerHTML =
+        `<tr class="loading-row"><td colspan="7">No se encontraron reservas.</td></tr>`
+      return
+    }
+    document.getElementById('tableBody').innerHTML = lista.map(r => `
+      <tr>
+        <td>${r.id_reserva}</td>
+        <td>${r.clientes ? r.clientes.nombre + ' ' + r.clientes.apellido : '-'}</td>
+        <td>${formatDate(r.fecha)}</td>
+        <td>${formatTime(r.hora)}</td>
+        <td>${r.num_personas}</td>
+        <td>${r.ocasion || '-'}</td>
+        <td>${badgeEstado(r.estado)}</td>
+      </tr>
+    `).join('')
+  }
+
+  function aplicarFiltros() {
+    const q      = document.getElementById('buscador').value.toLowerCase()
+    const estado = document.getElementById('filtroEstado').value
+    const filtrado = todasLasReservas.filter(r => {
+      const nombre = r.clientes ? (r.clientes.nombre + ' ' + r.clientes.apellido).toLowerCase() : ''
+      return (!q || nombre.includes(q)) && (!estado || r.estado === estado)
+    })
+    renderTabla(filtrado)
+  }
+
+  document.getElementById('buscador').addEventListener('input', aplicarFiltros)
+  document.getElementById('filtroEstado').addEventListener('change', aplicarFiltros)
+
+  cargarReservas()
+</script>
+</body>
+</html>
