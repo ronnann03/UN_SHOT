@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eventos — UNSHOT Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* Hero */
+    .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?w=1600&auto=format&fit=crop&q=85');
+    }
+
+    /* Evento destacado */
+    .event-featured   { position: relative; overflow: hidden; }
+    .event-featured img { width: 100%; height: 480px; object-fit: cover; }
+    .event-featured-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(12,12,12,.97) 0%, rgba(12,12,12,.4) 60%, transparent 100%);
+      display: flex; align-items: flex-end; padding: 40px;
+    }
+    .event-date-badge { background: var(--gold); color: var(--bg); text-align: center; padding: 12px 18px; min-width: 70px; margin-right: 24px; flex-shrink: 0; }
+    .event-date-badge .day { font-family: 'Playfair Display', serif; font-size: 2.2rem; line-height: 1; }
+    .event-date-badge .month { font-size: .7rem; letter-spacing: 3px; text-transform: uppercase; }
+    .event-info h3    { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); margin-bottom: 6px; }
+    .event-info p     { color: var(--text); font-size: .95rem; margin: 0; }
+
+    /* Cards de eventos */
+    .event-card       { background: var(--card); border: 1px solid var(--border); overflow: hidden; transition: border-color .3s, transform .3s; }
+    .event-card:hover { border-color: var(--gold-dark); transform: translateY(-4px); }
+    .event-card img   { width: 100%; height: 200px; object-fit: cover; }
+    .event-body       { padding: 24px 22px; }
+    .event-body h4    { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 6px; }
+    .event-body p     { font-size: .87rem; color: var(--muted); line-height: 1.6; }
+
+    .event-meta       { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+    .event-meta span  { font-size: .75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .event-meta i     { color: var(--gold); }
+
+    .event-type       { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--gold-dark); color: var(--gold-dark); padding: 2px 10px; display: inline-block; margin-bottom: 12px; }
+
+    /* Calendario strip */
+    .cal-strip        { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0; }
+    .cal-item         { padding: 28px 20px; border-right: 1px solid var(--border); transition: background .2s; cursor: default; }
+    .cal-item:hover   { background: rgba(201,168,76,.06); }
+    .cal-item:last-child { border: none; }
+    .cal-day          { font-size: .72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+    .cal-event        { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--white); margin: 4px 0; }
+    .cal-time         { font-size: .78rem; color: var(--gold); }
+
+    /* Eventos privados */
+    .private-section  { background: var(--bg); padding: 100px 0; }
+    .private-img      { width: 100%; height: 440px; object-fit: cover; }
+    .priv-feat        { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+    .priv-icon        { width: 42px; height: 42px; border: 1px solid var(--gold-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .priv-icon i      { color: var(--gold); font-size: 1.1rem; }
+    .priv-feat h5     { font-size: 1rem; color: var(--white); margin-bottom: 3px; }
+    .priv-feat p      { font-size: .85rem; color: var(--muted); margin: 0; }
+
+    /* Responsive */
+    @media (max-width: 767px) {
+      .event-featured img { height: 300px; }
+      .event-featured-overlay { padding: 24px; }
+      .event-info h3  { font-size: 1.4rem; }
+      .private-img    { height: 280px; }
+      .cal-item       { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="brand-logo" href="index.html"><em>UN</em><span>SHOT</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <i class="bi bi-list" style="color:var(--gold);font-size:1.5rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
+        <li class="nav-item"><a class="nav-link active" href="eventos.html">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        <li class="nav-item ms-2"><a class="nav-link btn-nav" href="index.html#reservar">Reservar Mesa</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item active">Eventos</li>
+      </ol>
+    </nav>
+    <h1>Noches que<br><em style="color:var(--gold)">se recuerdan</em></h1>
+    <div class="gold-line mt-3"></div>
+    <p>Música en vivo, DJ sets, noches temáticas y experiencias exclusivas cada semana.</p>
+  </div>
+</div>
+
+<!-- EVENTO DESTACADO -->
+<section style="background:var(--bg);padding:80px 0">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-tag">— Esta Semana —</div>
+      <h2 class="section-title">Evento Destacado</h2>
+      <div class="gold-line center"></div>
+    </div>
+    <div class="event-featured">
+      <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=1400&auto=format&fit=crop&q=85" alt="Jazz Night"/>
+      <div class="event-featured-overlay">
+        <div class="event-date-badge"><div class="day">25</div><div class="month">Ene</div></div>
+        <div class="event-info">
+          <h3>Jazz & Bourbon Night</h3>
+          <p>Trío de jazz en vivo · Selección especial de bourbones añejos · Solo para mayores de 18</p>
+          <div class="d-flex gap-3 mt-3 flex-wrap">
+            <span style="font-size:.8rem;color:var(--gold)"><i class="bi bi-clock me-1"></i>9:00 PM – 2:00 AM</span>
+            <span style="font-size:.8rem;color:var(--muted)"><i class="bi bi-ticket me-1"></i>Entrada libre con reserva</span>
+          </div>
+          <a href="index.html#reservar" class="btn-gold mt-4 d-inline-block">Reservar para esta Noche</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDARIO SEMANAL -->
+<div class="cal-strip">
+  <div class="container-fluid px-0">
+    <div class="row g-0">
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Lunes</div><div class="cal-event">Open Bar Night</div><div class="cal-time">9pm – 12am</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Martes</div><div class="cal-event">2×1 Cócteles</div><div class="cal-time">7pm – 10pm</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Miércoles</div><div class="cal-event">Ladies Night</div><div class="cal-time">8pm – 12am</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Jueves</div><div class="cal-event">DJ Set Electronic</div><div class="cal-time">10pm – 3am</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Viernes</div><div class="cal-event">Jazz Live</div><div class="cal-time">9pm – 5am</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Sábado</div><div class="cal-event">Noche Temática</div><div class="cal-time">9pm – 5am</div></div></div>
+      <div class="col-sm-6 col-lg"><div class="cal-item"><div class="cal-day">Domingo</div><div class="cal-event">Acoustic & Chill</div><div class="cal-time">7pm – 1am</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRÓXIMOS EVENTOS -->
+<section style="background:var(--surface);padding:100px 0">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-tag">— Agenda —</div>
+      <h2 class="section-title">Próximos Eventos</h2>
+      <div class="gold-line center"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&auto=format&fit=crop&q=80" alt="Noche Tropical"/>
+          <div class="event-body">
+            <span class="event-type">Temática</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Sáb 1 Feb</span>
+              <span><i class="bi bi-clock"></i>9pm – 5am</span>
+            </div>
+            <h4>Noche Tropical</h4>
+            <p>Cócteles de frutas exóticas, cumbia electrónica y el mejor ambiente del verano limeño.</p>
+            <a href="index.html#reservar" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=600&auto=format&fit=crop&q=80" alt="Masterclass"/>
+          <div class="event-body">
+            <span class="event-type">Masterclass</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Dom 2 Feb</span>
+              <span><i class="bi bi-clock"></i>4pm – 7pm</span>
+            </div>
+            <h4>Masterclass de Coctelería</h4>
+            <p>Aprende a preparar 3 cócteles de autor con nuestro Head Bartender. Cupos limitados.</p>
+            <a href="contacto.html" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Inscribirse</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1516997121675-4c2d1684aa3e?w=600&auto=format&fit=crop&q=80" alt="Noche Oscura"/>
+          <div class="event-body">
+            <span class="event-type">DJ Night</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Sáb 8 Feb</span>
+              <span><i class="bi bi-clock"></i>11pm – 5am</span>
+            </div>
+            <h4>Dark Frequencies</h4>
+            <p>DJ internacional en vivo, set de techno oscuro y ambient. La noche más oscura de Lima.</p>
+            <a href="index.html#reservar" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=600&auto=format&fit=crop&q=80" alt="Whisky Tasting"/>
+          <div class="event-body">
+            <span class="event-type">Cata</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Jue 13 Feb</span>
+              <span><i class="bi bi-clock"></i>7pm – 10pm</span>
+            </div>
+            <h4>Whisky Tasting</h4>
+            <p>Cata guiada de 6 whiskys premium escoceses con maridaje de quesos artesanales.</p>
+            <a href="contacto.html" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Inscribirse</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&auto=format&fit=crop&q=80" alt="San Valentín"/>
+          <div class="event-body">
+            <span class="event-type">Especial</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Vie 14 Feb</span>
+              <span><i class="bi bi-clock"></i>8pm – 3am</span>
+            </div>
+            <h4>Valentine's Night</h4>
+            <p>Menú especial para dos, cócteles de rosas, música en vivo y sorpresas para la noche de amor.</p>
+            <a href="index.html#reservar" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=600&auto=format&fit=crop&q=80" alt="Aniversario"/>
+          <div class="event-body">
+            <span class="event-type">Aniversario</span>
+            <div class="event-meta">
+              <span><i class="bi bi-calendar3"></i>Sáb 22 Feb</span>
+              <span><i class="bi bi-clock"></i>9pm – 5am</span>
+            </div>
+            <h4>UNSHOT 7° Aniversario</h4>
+            <p>La noche más grande del año. Celebramos 7 años con una fiesta épica. Open bar VIP.</p>
+            <a href="index.html#reservar" class="btn-gold mt-3 d-inline-block" style="padding:10px 26px;font-size:.85rem">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTOS PRIVADOS -->
+<section class="private-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=85" alt="Evento privado" class="private-img"/>
+      </div>
+      <div class="col-lg-5 offset-lg-1">
+        <div class="section-tag">— Solo para ti —</div>
+        <h2 class="section-title mb-3">Eventos<br>Privados</h2>
+        <div class="gold-line mb-4"></div>
+        <p>Celebra en UNSHOT. Ponemos toda nuestra experiencia a tu disposición para crear la noche perfecta: cumpleaños, aniversarios, lanzamientos corporativos o despedidas.</p>
+
+        <div class="priv-feat mt-4">
+          <div class="priv-icon"><i class="bi bi-stars"></i></div>
+          <div><h5>Área VIP exclusiva</h5><p>Reserva el espacio completo o una sección privada para tu grupo.</p></div>
+        </div>
+        <div class="priv-feat">
+          <div class="priv-icon"><i class="bi bi-cup-straw"></i></div>
+          <div><h5>Menú y barra personalizada</h5><p>Diseñamos un menú de cócteles con el nombre y tema de tu evento.</p></div>
+        </div>
+        <div class="priv-feat">
+          <div class="priv-icon"><i class="bi bi-music-note-beamed"></i></div>
+          <div><h5>Música a tu elección</h5><p>DJ o grupo en vivo según tu preferencia y presupuesto.</p></div>
+        </div>
+
+        <a href="contacto.html" class="btn-gold mt-4">Solicitar Cotización</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?w=1600&auto=format&fit=crop&q=80" alt="UNSHOT noche"/>
+  <div class="cta-overlay">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-4 mb-lg-0">
+          <h2>¿Tu evento en <em style="color:var(--gold)">UNSHOT?</em></h2>
+          <p>Escríbenos y armamos juntos la noche que mereces.</p>
+        </div>
+        <div class="col-lg-5 text-lg-end">
+          <a href="contacto.html" class="btn-gold solid">Contactar Ahora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-auto"><div class="footer-logo"><em>UN</em><span>SHOT</span></div></div>
+      <div class="col-auto d-flex gap-4 flex-wrap">
+        <a href="index.html">Inicio</a>
+        <a href="carta.html">Carta</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 UNSHOT Bar. Todos los derechos reservados.</span>
+      <span style="font-style:italic">Beber con responsabilidad.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+UNSHOT BAR — AVANCE 2
+=====================
+
+Contenido de esta carpeta:
+
+1_base_de_datos/
+   unshot_db_supabase.sql   <- Ejecutar en Supabase > SQL Editor
+
+2_diagrama_er/
+   er_diagrama.html         <- Abrir en navegador para ver el E-R
+
+3_aplicacion_web/
+   UnShotWeb/               <- Proyecto Java EE para Eclipse + Tomcat 9
+
+instrucciones_instalacion.txt  <- Leer PRIMERO antes de instalar
+
+IMPORTANTE:
+- Descarga postgresql-42.7.3.jar y coloca en UnShotWeb/WebContent/WEB-INF/lib/
+- Edita Conexion.java con tu HOST y PASSWORD de Supabase
+- Ver instrucciones_instalacion.txt para el paso a paso completo
