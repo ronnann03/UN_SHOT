@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="util.Conexion" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,13 +34,8 @@
     String telefono = request.getParameter("telefono");
     String email    = request.getParameter("email");
 
-    String url  = "jdbc:postgresql://db.disufhicxshjudewytwe.supabase.co:5432/postgres?sslmode=require";
-    String user = "postgres";
-    String pass = "L1m4Utp123..";
-
     try {
-      Class.forName("org.postgresql.Driver");
-      Connection cn = DriverManager.getConnection(url, user, pass);
+      Connection cn = Conexion.getConexion();
       String sql = "INSERT INTO clientes (nombre, apellido, telefono, email) VALUES (?, ?, ?, ?)";
       PreparedStatement ps = cn.prepareStatement(sql);
       ps.setString(1, nombre);

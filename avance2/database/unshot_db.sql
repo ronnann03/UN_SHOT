@@ -50,6 +50,21 @@ CREATE TABLE IF NOT EXISTS pedidos (
     precio_unitario NUMERIC(8,2) NOT NULL
 );
 
+-- Tabla 6: CONTACTOS
+CREATE TABLE IF NOT EXISTS contactos (
+    id_contacto      SERIAL PRIMARY KEY,
+    id_cliente       INT REFERENCES clientes(id_cliente) ON UPDATE CASCADE ON DELETE SET NULL,
+    nombre           VARCHAR(100) NOT NULL,
+    apellido         VARCHAR(100) NOT NULL,
+    email            VARCHAR(100) NOT NULL,
+    telefono         VARCHAR(20),
+    motivo           VARCHAR(120),
+    fecha_visita     DATE,
+    personas         VARCHAR(40),
+    mensaje          TEXT,
+    fecha_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Datos de ejemplo
 INSERT INTO clientes (nombre, apellido, telefono, email) VALUES
 ('Maria',   'Torres',  '+51 987 654 321', 'maria@email.com'),
@@ -80,3 +95,8 @@ INSERT INTO pedidos (id_reserva, id_bebida, cantidad, precio_unitario) VALUES
 (1, 1, 1, 38.00),
 (2, 3, 4, 45.00),
 (3, 4, 3, 40.00);
+
+INSERT INTO contactos (id_cliente, nombre, apellido, email, telefono, motivo, fecha_visita, personas, mensaje) VALUES
+(1, 'Maria', 'Torres', 'maria@email.com', '+51 987 654 321', 'Reserva de mesa', '2026-05-20', '1 - 2 personas', 'Quisiera una mesa cerca de la barra.'),
+(2, 'Carlos', 'Mendoza', 'carlos@email.com', '+51 912 345 678', 'Evento privado / Cumpleanos', '2026-05-28', '5 - 8 personas', 'Deseo informacion para celebrar un cumpleanos.'),
+(NULL, 'Andrea', 'Lopez', 'andrea@email.com', '+51 955 444 222', 'Consulta general', NULL, NULL, 'Quisiera conocer sus horarios de eventos en vivo.');

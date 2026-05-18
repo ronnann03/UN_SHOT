@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="util.Conexion" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,14 +32,10 @@
 <a href="insertar_cliente.jsp">+ Insertar Cliente</a>
 
 <%
-  String url  = "jdbc:postgresql://db.disufhicxshjudewytwe.supabase.co:5432/postgres?sslmode=require";
-  String user = "postgres";
-  String pass = "L1m4Utp123..";
   Connection cn = null;
 
   try {
-    Class.forName("org.postgresql.Driver");
-    cn = DriverManager.getConnection(url, user, pass);
+    cn = Conexion.getConexion();
 %>
   <p class="ok"><i>Conexion exitosa a Supabase PostgreSQL</i></p>
 

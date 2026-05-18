@@ -4,7 +4,7 @@
 
 | Parametro | Valor |
 |-----------|-------|
-| URL del proyecto | https://disufhicxshjudewytwe.supabase.co |
+| URL del proyecto | https://nfdiupwzzxseuymcejbh.supabase.co |
 | Puerto PostgreSQL | 5432 |
 | Base de datos | postgres |
 | Usuario | postgres |
@@ -13,7 +13,40 @@
 ## Cadena JDBC (para archivos .java y .jsp)
 
 ```
-jdbc:postgresql://db.disufhicxshjudewytwe.supabase.co:5432/postgres?sslmode=require
+jdbc:postgresql://db.nfdiupwzzxseuymcejbh.supabase.co:5432/postgres?sslmode=require
+```
+
+## Recomendado para backend Java/JSP
+
+Si la conexion directa `db.<project-ref>.supabase.co` falla por DNS o IPv6, usar el
+**Session pooler** desde el boton **Connect** del dashboard de Supabase.
+
+Formato habitual:
+
+```text
+jdbc:postgresql://aws-0-<region>.pooler.supabase.com:5432/postgres?sslmode=require
+```
+
+Con credenciales:
+
+- **Usuario**: `postgres.nfdiupwzzxseuymcejbh`
+- **Password**: la contraseña real de la base de datos del proyecto
+
+## Variables de entorno para `Conexion.java`
+
+La clase `util.Conexion` ya admite configuracion por variables de entorno o
+propiedades Java:
+
+- `SUPABASE_DB_URL`
+- `SUPABASE_DB_USER`
+- `SUPABASE_DB_PASS`
+
+Ejemplo:
+
+```powershell
+$env:SUPABASE_DB_URL  = "jdbc:postgresql://aws-0-<region>.pooler.supabase.com:5432/postgres?sslmode=require"
+$env:SUPABASE_DB_USER = "postgres.nfdiupwzzxseuymcejbh"
+$env:SUPABASE_DB_PASS = "TU_PASSWORD_REAL"
 ```
 
 ## Conexion desde JavaScript (frontend)
