@@ -2,274 +2,131 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <title>UNSHOT — Diagrama Entidad-Relación</title>
+  <title>UNSHOT - Diagrama Entidad-Relacion</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0c0c0c;
-      color: #e0e0e0;
-      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 30px;
     }
     h1 {
       text-align: center;
-      font-size: 2rem;
-      color: #c9a84c;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+      color: #333;
+      margin-bottom: 4px;
     }
-    .subtitle {
+    p.sub {
       text-align: center;
-      font-size: .85rem;
       color: #888;
-      letter-spacing: 2px;
-      margin-bottom: 50px;
-    }
-
-    /* ── Canvas / diagram area ── */
-    .er-canvas {
-      display: grid;
-      grid-template-columns: repeat(5, 220px);
-      gap: 0 80px;
-      justify-content: center;
-      position: relative;
-    }
-
-    /* ── Table boxes ── */
-    .er-table {
-      background: #1a1a1a;
-      border: 2px solid #c9a84c;
-      border-radius: 4px;
-      overflow: hidden;
-      align-self: start;
-    }
-    .er-table-name {
-      background: #c9a84c;
-      color: #0c0c0c;
-      font-weight: 700;
+      margin-bottom: 30px;
       font-size: .9rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 10px 14px;
-      text-align: center;
     }
-    .er-table table {
-      width: 100%;
-      border-collapse: collapse;
+    .diagrama {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 30px;
+      max-width: 960px;
+      margin: 0 auto;
     }
-    .er-table table tr {
-      border-bottom: 1px solid #2a2a2a;
-    }
-    .er-table table tr:last-child { border-bottom: none; }
-    .er-table table td {
-      padding: 7px 12px;
-      font-size: .78rem;
-    }
-    .er-table table td:first-child {
-      color: #c9a84c;
-      font-weight: 700;
-      white-space: nowrap;
-      width: 28px;
-    }
-    .er-table table td:nth-child(2) {
-      color: #fff;
-      font-weight: 600;
-    }
-    .er-table table td:last-child {
-      color: #888;
-      font-size: .72rem;
-      text-align: right;
-    }
-    .badge-pk { color: #ffd700 !important; }
-    .badge-fk { color: #82c8ff !important; }
-
-    /* ── Relationships section ── */
-    .relations {
-      max-width: 900px;
-      margin: 60px auto 0;
-    }
-    .relations h2 {
-      color: #c9a84c;
-      font-size: 1.1rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 10px;
-    }
-    .rel-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 10px 0;
-      border-bottom: 1px solid #1e1e1e;
-      font-size: .88rem;
-    }
-    .rel-arrow {
-      font-size: 1.4rem;
-      color: #c9a84c;
-      flex-shrink: 0;
-    }
-    .rel-card {
-      background: #c9a84c;
-      color: #0c0c0c;
-      font-weight: 700;
-      padding: 4px 10px;
-      font-size: .75rem;
-      border-radius: 2px;
-      white-space: nowrap;
-    }
-    .rel-cardinality {
-      color: #c9a84c;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-    .rel-desc { color: #aaa; font-size: .82rem; }
-
-    /* ── Legend ── */
-    .legend {
-      max-width: 900px;
+    .descripcion {
+      max-width: 960px;
       margin: 30px auto 0;
-      display: flex;
-      gap: 30px;
-      font-size: .8rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 24px 30px;
     }
-    .leg-item { display: flex; align-items: center; gap: 8px; }
-    .leg-dot { width: 12px; height: 12px; border-radius: 2px; }
-
-    .footer-note {
-      text-align: center;
-      margin-top: 50px;
-      font-size: .75rem;
+    .descripcion h2 {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .descripcion ul {
+      list-style: none;
+      padding: 0;
+    }
+    .descripcion ul li {
+      padding: 6px 0;
+      font-size: .9rem;
       color: #555;
-      letter-spacing: 1px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .descripcion ul li strong {
+      color: #333;
     }
   </style>
 </head>
 <body>
 
-<h1>UNSHOT BAR</h1>
-<p class="subtitle">Diagrama Entidad – Relación · 5 Tablas</p>
+<h1>UNSHOT Bar &mdash; Diagrama Entidad-Relacion</h1>
+<p class="sub">5 tablas &bull; Motor: PostgreSQL (Supabase)</p>
 
-<!-- ── ER TABLES ── -->
-<div class="er-canvas">
+<div class="diagrama">
+  <div class="mermaid">
+erDiagram
+    CLIENTES {
+        int id_cliente PK
+        varchar nombre
+        varchar apellido
+        varchar telefono
+        varchar email
+        date fecha_registro
+    }
+    BEBIDAS {
+        int id_bebida PK
+        varchar nombre
+        varchar categoria
+        text descripcion
+        numeric precio
+    }
+    EVENTOS {
+        int id_evento PK
+        varchar nombre
+        text descripcion
+        date fecha
+        time hora
+        numeric precio_entrada
+    }
+    RESERVAS {
+        int id_reserva PK
+        int id_cliente FK
+        date fecha
+        time hora
+        int num_personas
+        varchar ocasion
+        varchar estado
+    }
+    PEDIDOS {
+        int id_pedido PK
+        int id_reserva FK
+        int id_bebida FK
+        int cantidad
+        numeric precio_unitario
+    }
 
-  <!-- CLIENTES -->
-  <div class="er-table">
-    <div class="er-table-name">clientes</div>
-    <table>
-      <tr><td class="badge-pk">PK</td><td>id_cliente</td><td>INT AI</td></tr>
-      <tr><td></td><td>nombre</td><td>VARCHAR(100)</td></tr>
-      <tr><td></td><td>apellido</td><td>VARCHAR(100)</td></tr>
-      <tr><td></td><td>telefono</td><td>VARCHAR(20)</td></tr>
-      <tr><td></td><td>email</td><td>VARCHAR(100)</td></tr>
-      <tr><td></td><td>fecha_registro</td><td>DATE</td></tr>
-    </table>
-  </div>
-
-  <!-- BEBIDAS -->
-  <div class="er-table">
-    <div class="er-table-name">bebidas</div>
-    <table>
-      <tr><td class="badge-pk">PK</td><td>id_bebida</td><td>INT AI</td></tr>
-      <tr><td></td><td>nombre</td><td>VARCHAR(100)</td></tr>
-      <tr><td></td><td>categoria</td><td>ENUM</td></tr>
-      <tr><td></td><td>descripcion</td><td>TEXT</td></tr>
-      <tr><td></td><td>precio</td><td>DECIMAL(8,2)</td></tr>
-    </table>
-  </div>
-
-  <!-- RESERVAS -->
-  <div class="er-table" style="margin-top:0">
-    <div class="er-table-name">reservas</div>
-    <table>
-      <tr><td class="badge-pk">PK</td><td>id_reserva</td><td>INT AI</td></tr>
-      <tr><td class="badge-fk">FK</td><td>id_cliente</td><td>→ clientes</td></tr>
-      <tr><td></td><td>fecha</td><td>DATE</td></tr>
-      <tr><td></td><td>hora</td><td>TIME</td></tr>
-      <tr><td></td><td>num_personas</td><td>INT</td></tr>
-      <tr><td></td><td>ocasion</td><td>VARCHAR(100)</td></tr>
-      <tr><td></td><td>estado</td><td>ENUM</td></tr>
-    </table>
-  </div>
-
-  <!-- PEDIDOS -->
-  <div class="er-table">
-    <div class="er-table-name">pedidos</div>
-    <table>
-      <tr><td class="badge-pk">PK</td><td>id_pedido</td><td>INT AI</td></tr>
-      <tr><td class="badge-fk">FK</td><td>id_reserva</td><td>→ reservas</td></tr>
-      <tr><td class="badge-fk">FK</td><td>id_bebida</td><td>→ bebidas</td></tr>
-      <tr><td></td><td>cantidad</td><td>INT</td></tr>
-      <tr><td></td><td>precio_unitario</td><td>DECIMAL(8,2)</td></tr>
-    </table>
-  </div>
-
-  <!-- EVENTOS -->
-  <div class="er-table">
-    <div class="er-table-name">eventos</div>
-    <table>
-      <tr><td class="badge-pk">PK</td><td>id_evento</td><td>INT AI</td></tr>
-      <tr><td></td><td>nombre</td><td>VARCHAR(150)</td></tr>
-      <tr><td></td><td>descripcion</td><td>TEXT</td></tr>
-      <tr><td></td><td>fecha</td><td>DATE</td></tr>
-      <tr><td></td><td>hora</td><td>TIME</td></tr>
-      <tr><td></td><td>precio_entrada</td><td>DECIMAL(8,2)</td></tr>
-    </table>
-  </div>
-
-</div>
-
-<!-- ── RELATIONSHIPS ── -->
-<div class="relations">
-  <h2>Relaciones</h2>
-
-  <div class="rel-row">
-    <div class="rel-card">clientes</div>
-    <div class="rel-cardinality">1</div>
-    <div class="rel-arrow">────────</div>
-    <div class="rel-cardinality">N</div>
-    <div class="rel-card">reservas</div>
-    <div class="rel-desc">Un cliente puede tener muchas reservas. Cada reserva pertenece a un único cliente.</div>
-  </div>
-
-  <div class="rel-row">
-    <div class="rel-card">reservas</div>
-    <div class="rel-cardinality">1</div>
-    <div class="rel-arrow">────────</div>
-    <div class="rel-cardinality">N</div>
-    <div class="rel-card">pedidos</div>
-    <div class="rel-desc">Una reserva puede tener muchos pedidos (líneas de bebidas). Cada pedido pertenece a una reserva.</div>
-  </div>
-
-  <div class="rel-row">
-    <div class="rel-card">bebidas</div>
-    <div class="rel-cardinality">1</div>
-    <div class="rel-arrow">────────</div>
-    <div class="rel-cardinality">N</div>
-    <div class="rel-card">pedidos</div>
-    <div class="rel-desc">Una bebida puede aparecer en muchos pedidos. Cada pedido referencia una única bebida.</div>
-  </div>
-
-  <div class="rel-row">
-    <div class="rel-card">eventos</div>
-    <div class="rel-cardinality">—</div>
-    <div class="rel-arrow">────────</div>
-    <div class="rel-cardinality">—</div>
-    <div class="rel-card">independiente</div>
-    <div class="rel-desc">La tabla eventos almacena los eventos del bar de forma independiente (entidad fuerte).</div>
+    CLIENTES ||--o{ RESERVAS : "realiza"
+    RESERVAS ||--o{ PEDIDOS : "contiene"
+    BEBIDAS ||--o{ PEDIDOS : "incluye"
   </div>
 </div>
 
-<!-- ── LEGEND ── -->
-<div class="legend" style="justify-content:center; margin-top:30px;">
-  <div class="leg-item"><div class="leg-dot" style="background:#ffd700"></div><span style="color:#ffd700">PK — Clave Primaria</span></div>
-  <div class="leg-item"><div class="leg-dot" style="background:#82c8ff"></div><span style="color:#82c8ff">FK — Clave Foránea</span></div>
-  <div class="leg-item"><div class="leg-dot" style="background:#c9a84c"></div><span>AI — Auto Increment</span></div>
+<div class="descripcion">
+  <h2>Descripcion de las tablas</h2>
+  <ul>
+    <li><strong>CLIENTES</strong> &mdash; Almacena los datos personales de los clientes del bar (nombre, telefono, email).</li>
+    <li><strong>BEBIDAS</strong> &mdash; Catalogo de bebidas y cocteles disponibles, con categoria y precio.</li>
+    <li><strong>EVENTOS</strong> &mdash; Eventos programados en el bar (noches de jazz, catas, fiestas).</li>
+    <li><strong>RESERVAS</strong> &mdash; Reservas de mesa hechas por los clientes, con fecha, hora y numero de personas.</li>
+    <li><strong>PEDIDOS</strong> &mdash; Bebidas pedidas dentro de una reserva, vincula RESERVAS con BEBIDAS.</li>
+  </ul>
 </div>
 
-<p class="footer-note">UNSHOT Bar · Diagrama E-R · Avance 2 · Motor: Supabase (PostgreSQL)</p>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>
 
 </body>
 </html>
