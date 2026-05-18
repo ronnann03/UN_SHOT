@@ -1,73 +1,64 @@
 -- ============================================================
 --  UNSHOT BAR — Base de Datos
---  Motor   : MySQL 8.0+
---  Charset : utf8mb4
+--  Motor   : PostgreSQL (Supabase)
+--  Ejecutar en: Supabase Dashboard > SQL Editor
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS unshot_db
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_spanish_ci;
-
-USE unshot_db;
-
 -- ── Tabla 1: CLIENTES ────────────────────────────────────────
-CREATE TABLE clientes (
-    id_cliente     INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS clientes (
+    id_cliente     SERIAL PRIMARY KEY,
     nombre         VARCHAR(100) NOT NULL,
     apellido       VARCHAR(100) NOT NULL,
     telefono       VARCHAR(20),
     email          VARCHAR(100) UNIQUE,
-    fecha_registro DATE NOT NULL DEFAULT (CURRENT_DATE)
+    fecha_registro DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 -- ── Tabla 2: BEBIDAS ─────────────────────────────────────────
-CREATE TABLE bebidas (
-    id_bebida   INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS bebidas (
+    id_bebida   SERIAL PRIMARY KEY,
     nombre      VARCHAR(100) NOT NULL,
-    categoria   ENUM('Clasico','Signature','Premium','Sin Alcohol') NOT NULL,
+    categoria   VARCHAR(30) NOT NULL
+                  CHECK (categoria IN ('Clasico','Signature','Premium','Sin Alcohol')),
     descripcion TEXT,
-    precio      DECIMAL(8,2) NOT NULL
+    precio      NUMERIC(8,2) NOT NULL
 );
 
 -- ── Tabla 3: EVENTOS ─────────────────────────────────────────
-CREATE TABLE eventos (
-    id_evento      INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS eventos (
+    id_evento      SERIAL PRIMARY KEY,
     nombre         VARCHAR(150) NOT NULL,
     descripcion    TEXT,
     fecha          DATE NOT NULL,
     hora           TIME NOT NULL,
-    precio_entrada DECIMAL(8,2) NOT NULL DEFAULT 0.00
+    precio_entrada NUMERIC(8,2) NOT NULL DEFAULT 0.00
 );
 
 -- ── Tabla 4: RESERVAS ────────────────────────────────────────
---   Cada reserva pertenece a un cliente (N clientes : 1 reserva)
-CREATE TABLE reservas (
-    id_reserva   INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente   INT NOT NULL,
+CREATE TABLE IF NOT EXISTS reservas (
+    id_reserva   SERIAL PRIMARY KEY,
+    id_cliente   INT NOT NULL
+                   REFERENCES clientes(id_cliente)
+                   ON UPDATE CASCADE ON DELETE RESTRICT,
     fecha        DATE NOT NULL,
     hora         TIME NOT NULL,
     num_personas INT NOT NULL,
     ocasion      VARCHAR(100),
-    estado       ENUM('Pendiente','Confirmada','Cancelada') NOT NULL DEFAULT 'Pendiente',
-    CONSTRAINT fk_reservas_cliente
-        FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+    estado       VARCHAR(20) NOT NULL DEFAULT 'Pendiente'
+                   CHECK (estado IN ('Pendiente','Confirmada','Cancelada'))
 );
 
 -- ── Tabla 5: PEDIDOS ─────────────────────────────────────────
---   Cada pedido vincula una reserva con una bebida (tabla intermedia)
-CREATE TABLE pedidos (
-    id_pedido       INT AUTO_INCREMENT PRIMARY KEY,
-    id_reserva      INT NOT NULL,
-    id_bebida       INT NOT NULL,
+CREATE TABLE IF NOT EXISTS pedidos (
+    id_pedido       SERIAL PRIMARY KEY,
+    id_reserva      INT NOT NULL
+                      REFERENCES reservas(id_reserva)
+                      ON UPDATE CASCADE ON DELETE CASCADE,
+    id_bebida       INT NOT NULL
+                      REFERENCES bebidas(id_bebida)
+                      ON UPDATE CASCADE ON DELETE RESTRICT,
     cantidad        INT NOT NULL DEFAULT 1,
-    precio_unitario DECIMAL(8,2) NOT NULL,
-    CONSTRAINT fk_pedidos_reserva
-        FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva)
-        ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT fk_pedidos_bebida
-        FOREIGN KEY (id_bebida) REFERENCES bebidas(id_bebida)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+    precio_unitario NUMERIC(8,2) NOT NULL
 );
 
 -- ── Datos de ejemplo ─────────────────────────────────────────
