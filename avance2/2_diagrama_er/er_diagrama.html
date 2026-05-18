@@ -107,9 +107,9 @@ erDiagram
         numeric precio_unitario
     }
 
-    CLIENTES ||--o{ RESERVAS : "realiza"
-    RESERVAS ||--o{ PEDIDOS : "contiene"
-    BEBIDAS ||--o{ PEDIDOS : "incluye"
+    CLIENTES ||--o{ RESERVAS : "1:N - realiza"
+    RESERVAS ||--o{ PEDIDOS : "1:N - contiene"
+    BEBIDAS ||--o{ PEDIDOS : "1:N - incluye"
   </div>
 </div>
 
