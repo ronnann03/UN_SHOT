@@ -70,7 +70,7 @@
     <div class="card-action">Insertar →</div>
   </a>
 
-  <a class="card" href="ListarClientes">
+  <a class="card" href="listar_clientes.jsp">
     <div class="card-icon">📋</div>
     <div class="card-title">Ver Clientes</div>
     <div class="card-desc">Lista todos los clientes registrados en el sistema.</div>
@@ -84,10 +84,17 @@
     <div class="card-action">Insertar →</div>
   </a>
 
-  <a class="card" href="ListarBebidas">
+  <a class="card" href="listar_bebidas.jsp">
     <div class="card-icon">📖</div>
     <div class="card-title">Ver Bebidas</div>
     <div class="card-desc">Lista todas las bebidas y cocteles disponibles en la carta.</div>
+    <div class="card-action">Ver listado →</div>
+  </a>
+
+  <a class="card" href="listar_reservas.jsp">
+    <div class="card-icon">📅</div>
+    <div class="card-title">Ver Reservas</div>
+    <div class="card-desc">Lista todas las reservas de mesa registradas.</div>
     <div class="card-action">Ver listado →</div>
   </a>
 
