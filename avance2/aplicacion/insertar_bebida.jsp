@@ -36,7 +36,7 @@
 
     String url  = "jdbc:postgresql://db.disufhicxshjudewytwe.supabase.co:5432/postgres?sslmode=require";
     String user = "postgres";
-    String pass = "TU_PASSWORD_SUPABASE";
+    String pass = "L1m4Utp123..";
 
     try {
       Class.forName("org.postgresql.Driver");
