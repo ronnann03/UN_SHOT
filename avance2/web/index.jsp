@@ -77,22 +77,15 @@
     <div class="card-action">Ver listado →</div>
   </a>
 
-  <a class="card" href="insertar_bebida.jsp">
-    <div class="card-icon">🍹</div>
-    <div class="card-title">Nueva Bebida</div>
-    <div class="card-desc">Agrega un nuevo coctel o bebida a la carta del bar.</div>
+  <a class="card" href="insertar_reserva.jsp">
+    <div class="card-icon">📅</div>
+    <div class="card-title">Nueva Reserva</div>
+    <div class="card-desc">Registra una nueva reserva de mesa.</div>
     <div class="card-action">Insertar →</div>
   </a>
 
-  <a class="card" href="listar_bebidas.jsp">
-    <div class="card-icon">📖</div>
-    <div class="card-title">Ver Bebidas</div>
-    <div class="card-desc">Lista todas las bebidas y cocteles disponibles en la carta.</div>
-    <div class="card-action">Ver listado →</div>
-  </a>
-
   <a class="card" href="listar_reservas.jsp">
-    <div class="card-icon">📅</div>
+    <div class="card-icon">📋</div>
     <div class="card-title">Ver Reservas</div>
     <div class="card-desc">Lista todas las reservas de mesa registradas.</div>
     <div class="card-action">Ver listado →</div>
