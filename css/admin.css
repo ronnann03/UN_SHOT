@@ -103,6 +103,30 @@
 .search-bar::placeholder { color: var(--muted); }
 .search-bar:focus { outline: none; border-color: var(--gold); }
 
+/* Campos de formulario (modal) */
+.form-label-g {
+  font-size: .68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+}
+.form-field {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--white);
+  padding: 11px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color .2s;
+}
+.form-field::placeholder { color: var(--muted); }
+.form-field:focus { outline: none; border-color: var(--gold); background: rgba(201,168,76,.05); box-shadow: none; }
+
 /* Loader */
 .loading-row td {
   text-align: center;
